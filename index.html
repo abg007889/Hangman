@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Hang Man</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+    integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    #background-photo {
+      background-image: linear-gradient(rgba(224, 208, 208, 40), rgba(100, 100, 100, .3)), url('pexels-pixabay-256417.jpg');
+      background-size: cover;
+      background-position: center;
+      width: 100%;
+      height: 100vh;
+      border-radius: 5%;
+      padding: 20px;
+    }
+
+    #btn {
+      box-shadow: 5px 5px 10px rgba(0, 0, 0, 40);
+      border-radius: 15px;
+      margin-bottom: 10px;
+      background-color: rgba(128, 128, 128, 0.7);
+      font-weight: 900;
+
+    }
+
+    #main-content {
+      margin-top: 5%;
+      box-shadow: 20px 20px 50px rgba(0, 0, 0, 0.3);
+      border-radius: 15px;
+      background-color: rgba(128, 128, 128, 0.7);
+      font-weight: 1000;
+      padding: 5%;
+      height: 70vh;
+    }
+
+    #first-row {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: flex-start;
+    }
+
+    #hp-bar {
+      width: 300px;
+      border: 3px solid black;
+      margin-bottom: 8px;
+      border-radius: 16px;
+    }
+
+    #hp {
+      background-color: green;
+      width: 100%;
+      height: 24px;
+      border-radius: 16px;
+    }
+
+    #second-row {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 5%;
+    }
+
+    #keyboard {
+      display: inline-block;
+      padding: 5% 10%;
+      margin-top: 5%;
+      border-radius: 10px;
+      background-color: rgba(226, 230, 218, 0.7);
+      text-align: center;
+      box-shadow: 4px 4px 4px #999;
+    }
+
+    #keyboard div {
+      margin: 5px 0;
+    }
+
+    #space {
+      width: 184px;
+    }
+
+    #keyboard label {
+      margin-top: 20px;
+      font-family: serif;
+      text-decoration: underline;
+    }
+
+    #keyboard input {
+      box-shadow: 2px 2px 2px #666;
+    }
+
+    #keyboard input[type="text"] {
+      margin-top: 20px;
+      border: 1px solid #666;
+      border-radius: 4px;
+      box-shadow: none;
+    }
+  </style>
+</head>
+
+
+
+<body>
+  <div class="container" style="height: 50vh;">
+    <div class="row justify-content-between" style="height: 100vh;">
+      <div class="col-lg-1 rounded"
+        style="background-color: lightgray;  display:flex; flex-direction: column; justify-content: space-between;">
+        <h1>1</h1>
+        <h2>2</h2>
+      </div>
+      <!-- background-image -->
+      <div id="background-photo" class="col-lg-11">
+        <button id="btn" class="btn btn-md " type="button">Hang Man</button>
+        <button id="btn" class="btn btn-md " style=" margin-left: 50px;" type="button">Sign up</button>
+        <button id="btn" class="btn btn-md " style=" margin-left: 50px;" type="button">Log in</button>
+
+        <!-- main content to guesse word -->
+        <div id="main-content" class="container">
+          <div class="row" style="display: flex; flex-direction: column;">
+            <!-- the first line of the game setting -->
+            <div id="first-row">
+              <p>Wins: <span id="win"> 0</span></p>
+              </p>
+              <p>Guesses Left:<span id="chances"> 10</span></p>
+              <button id="btn" class="btn btn-sm" type="button">Hints</button>
+              <div id="hp-bar">
+                <div id="hp"></div>
+              </div>
+            </div>
+            <!-- the second to fourth line of the game setting (include input) -->
+            <div id="second-row">
+              <p style="align-items: left;">Correct Guess: <span id="correct"></span></p>
+              <p style="align-items: left;">Wrong Guess: <span id="wrong"></span></p>
+              <p>Word :<span id="guessed"></span></p>
+              <input id="user-input" type="text"> </input>
+            </div>
+            <!-- keyboard part -->
+            <div id="keyboard">
+              <div>
+                <input id="q" type="button" value="Q">
+                <input id="w" type="button" value="W">
+                <input id="e" type="button" value="E">
+                <input id="r" type="button" value="R">
+                <input id="t" type="button" value="T">
+                <input id="y" type="button" value="Y">
+                <input id="u" type="button" value="U">
+                <input id="i" type="button" value="I">
+                <input id="o" type="button" value="O">
+                <input id="p" type="button" value="P">
+              </div>
+              <div>
+                <input id="a" type="button" value="A">
+                <input id="s" type="button" value="S">
+                <input id="d" type="button" value="D">
+                <input id="f" type="button" value="F">
+                <input id="g" type="button" value="G">
+                <input id="h" type="button" value="H">
+                <input id="j" type="button" value="J">
+                <input id="k" type="button" value="K">
+                <input id="l" type="button" value="L">
+              </div>
+              <div>
+                <input id="enter" type="button" value="ENTER">
+                <input id="z" type="button" value="Z">
+                <input id="x" type="button" value="X">
+                <input id="c" type="button" value="C">
+                <input id="v" type="button" value="V">
+                <input id="b" type="button" value="B">
+                <input id="n" type="button" value="N">
+                <input id="m" type="button" value="M">
+                <input id="backspace" type="button" value="←">
+              </div>
+            </div><!-- end #keyboard -->
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+    crossorigin="anonymous"></script>
+
+
+  <script>
+    // constants and variables
+    const alphabet = "abcdefghijklmnopqrstuvwxyz";
+    const answer = "hello";
+    let winCount = 0;
+    let chances = 10;
+    let correctLetters = [];
+    let wrongLetters = [];
+    let underline = [];
+
+    // initialize the underline string
+    for (let i = 0; i < answer.length; i++) {
+      underline.push('_');
+    }
+    document.getElementById("guessed").innerHTML = underline.join(" ");
+
+    // set event listeners
+    document.getElementById("user-input").addEventListener("keydown", pressKey);
+    document.getElementById("enter").addEventListener("click", pressKey);
+    document.getElementById("backspace").addEventListener("click", pressKey);
+    for (const key of alphabet) {
+      // for each keyboard letter buttons
+      document.getElementById(key).addEventListener("click", pressKey);
+    }
+
+    // focus the input field at start
+    document.getElementById("user-input").focus();
+
+    // helper functions
+    function isValidWord(str) {
+      // check if a string contains only letters
+      for (const letter of str) {
+        if (!alphabet.includes(letter)) {
+          alert("Please enter only letters!");
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function hasWrongLetter(str) {
+      // check if a string contains known wrong letters
+      for (const letter of str) {
+        if (wrongLetters.includes(letter)) {
+          alert("You used wrong letters, guess again!");
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function matchGuessed(str) {
+      // check if the string contains known letters at right positions
+      for (let i = 0; i < str.length; i++) {
+        if (underline[i] !== "_" && str[i] !== underline[i]) {
+          alert(`Please follow the guessed letters: ${underline.join("")}`);
+          return false;
+        }
+      }
+      return true;
+    }
+
+
+    // main game logic
+    function game(event) {
+      // get input string
+      let input = document.getElementById("user-input").value.toLowerCase();
+
+      // give warning and do nothing under three invalid cases
+      if (!isValidWord(input) || hasWrongLetter(input) || !matchGuessed(input)) {
+        return;
+      }
+
+      // when input is valid, clear input field for convenience
+      document.getElementById("user-input").value = "";
+
+      // compare input with the answer, letter by letter
+      for (let i = 0; i < answer.length; i++) {
+
+        // if input letter is not in anwser, put in wrongLetters array
+        if (!answer.includes(input[i])) {
+          if (!wrongLetters.includes(input[i])) {
+            wrongLetters.push(input[i]);
+          }
+          continue; // end current iteration, no need to check letter position
+        }
+
+        // if answer contains input letter, put in correctLetters array
+        else {
+          if (!correctLetters.includes(input[i])) {
+            correctLetters.push(input[i]);
+          }
+          // if input letter is at correct position, update underline string
+          if (input[i] === answer[i]) {
+            underline[i] = answer[i];
+          }
+        }
+      }
+
+      // if input does not equal to answer, reduce hp
+      if (input !== answer) {
+        chances--;
+      }
+
+      // update display text for underline word, the correct and wrong characters, and hp bar
+      document.getElementById("guessed").innerHTML = underline.join(" ");
+      document.getElementById("wrong").innerHTML = wrongLetters.join(" ");
+      document.getElementById("correct").innerHTML = correctLetters.join(" ");
+      document.getElementById("hp").style.width = `${chances / 10 * 100}%`;
+      document.getElementById("chances").innerText = ' ' + chances;
+      // check win and restart
+      if (input == answer) {
+        alert(`You won, answer is ${answer}`);
+        winCount++;
+        restart();
+      }
+
+      // if chance runs out, player loses and game restarts
+      if (chances === 0) {
+        alert(`You lost, answer is ${answer}`);
+        restart();
+      }
+    }
+
+
+    // start a new game
+    function restart() {
+      chances = 10;
+      document.getElementById("hp").style.width = "100%";
+      wrongLetters = [];
+      document.getElementById("wrong").innerHTML = wrongLetters.join(" ");
+      correctLetters = [];
+      document.getElementById("correct").innerHTML = correctLetters.join(" ");
+      underline = [];
+      for (let i = 0; i < answer.length; i++) {
+        underline.push('_');
+      }
+      document.getElementById("guessed").innerHTML = underline.join(" ");
+      document.getElementById("user-input").focus();
+      document.getElementById("chances").innerText = ' ' + chances;
+      document.getElementById("win").innerText = ' ' + winCount;
+    }
+
+
+    // keydown/click event handler
+    function pressKey(event) {
+      let input = document.getElementById("user-input").value;
+
+      // run game logic for typing "enter" or clicking virtual "enter" button
+      if (event.key === "Enter" || event.target.getAttribute("id") === "enter") {
+        if (input.length < 5) {
+          // do nothing if input is fewer than 5 letter long
+          alert("please type a 5-letter word");
+          return;
+        }
+        game();
+      }
+
+      // type letter using virtual keyboard
+      if (alphabet.includes(event.target.getAttribute("id")) && input.length < 5) {
+        document.getElementById("user-input").value += event.target.getAttribute("id");
+        document.getElementById("user-input").focus();
+      }
+
+      // delete letter using virtual keyboard
+      if (event.target.getAttribute("id") === "backspace") {
+        document.getElementById("user-input").value = input.slice(0, -1);
+        document.getElementById("user-input").focus();
+      }
+    }
+  </script>
+</body>
+
+</html>
