@@ -140,6 +140,7 @@ function game(event) {
 // start a new game
 function restart() {
   newAnswer(wordList);
+  console.log(answer);
   chances = 10;
   document.getElementById("hp").style.width = "100%";
   wrongLetters = [];
