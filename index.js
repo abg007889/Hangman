@@ -2,7 +2,6 @@ import {wordList} from "./wordlist.js";
     
 // constants and variables
 let answer;
-let rand;
 const alphabet = "abcdefghijklmnopqrstuvwxyz";
 let winCount = 0;
 let chances = 10;
@@ -11,10 +10,7 @@ let wrongLetters = [];
 let underline = [];
 
 // initialize answer
-do{
-  rand = Math.floor(Math.random() * wordList.length);
-  answer = wordList[rand].toLowerCase();
-}while(answer.length !== 5 || !isValidWord(answer, false))
+newAnswer(wordList);
 console.log(answer);
 
 // initialize the underline string
@@ -71,6 +67,13 @@ function matchGuessed(str) {
   return true;
 }
 
+function newAnswer(arr) {
+  // make new random answer from source array
+  do{
+    let rand = Math.floor(Math.random() * arr.length);
+    answer = arr[rand].toLowerCase();
+  }while(answer.length !== 5 || !isValidWord(answer, false))
+}
 
 // main game logic
 function game(event) {
@@ -136,6 +139,7 @@ function game(event) {
 
 // start a new game
 function restart() {
+  newAnswer(wordList);
   chances = 10;
   document.getElementById("hp").style.width = "100%";
   wrongLetters = [];
