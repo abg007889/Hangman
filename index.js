@@ -122,6 +122,7 @@ function game(event) {
   document.getElementById("correct").innerHTML = correctLetters.join(" ");
   document.getElementById("hp").style.width = `${chances / 10 * 100}%`;
   document.getElementById("chances").innerText = ' ' + chances;
+  colorKey();
   // check win and restart
   if (input == answer) {
     alert(`You won, answer is ${answer}`);
@@ -139,6 +140,7 @@ function game(event) {
 
 // start a new game
 function restart() {
+  colorKey("reset");
   newAnswer(wordList);
   console.log(answer);
   chances = 10;
@@ -182,5 +184,24 @@ function pressKey(event) {
   if (event.target.getAttribute("id") === "backspace") {
     document.getElementById("user-input").value = input.slice(0, -1);
     document.getElementById("user-input").focus();
+  }
+}
+
+// color the wrong letter virtual buttons, optionally reset color for all buttons
+function colorKey(mode=""){
+  if (mode==="reset") {
+    for (const letter of alphabet) {
+      // for each keyboard letter buttons
+      const btn = document.getElementById(letter);
+      btn.style.backgroundColor = "rgb(240, 240, 240)";
+      btn.style.color = "black";
+    }
+  }
+  else {
+    for(const char of wrongLetters) {
+      const key = document.getElementById(char);
+      key.style.backgroundColor = "#f03c3c";
+      key.style.color = "white";
+    }
   }
 }
